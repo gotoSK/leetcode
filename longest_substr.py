@@ -45,6 +45,19 @@ def length_of_longest_substring(s: str) -> str:
 
     return max_count
 
+def length_of_longest_substring_optimized(s: str) -> str: # using sliding window technique
+    ss = [] # stores any substring
+    left = 0
+
+    for right in range(len(s)):
+        while s[right] in ss:
+            ss.remove(s[left])
+            left += 1
+        ss.append(s[right])
+    
+    return len(ss)
+
 if __name__ == "__main__":
     line = input()
-    print(length_of_longest_substring(line))
+    # print(length_of_longest_substring(line))
+    print(length_of_longest_substring_optimized(line))
