@@ -48,14 +48,16 @@ def length_of_longest_substring(s: str) -> str:
 def length_of_longest_substring_optimized(s: str) -> str: # using sliding window technique
     ss = [] # stores any substring
     left = 0
+    max_len = 0 # maximum length among all substrings
 
-    for right in range(len(s)):
-        while s[right] in ss:
+    for right in range(len(s)): # increment right each time to check the new char in the str
+        while s[right] in ss: # get new substr until each char in it is unique
             ss.remove(s[left])
             left += 1
-        ss.append(s[right])
+        ss.append(s[right]) # append the new char in the substr
+        max_len = max(max_len, len(ss)) # update longest length if the new substr is longer
     
-    return len(ss)
+    return max_len
 
 if __name__ == "__main__":
     line = input()
