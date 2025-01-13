@@ -57,13 +57,13 @@ def maxArea_op(height: list, n: int) -> int:
     right = n-1 # rightmost side of the container
     area = 0
     
-    while left < right:
+    while left < right: # keep iterating until the sides of container cross each other
         area = max(
             (right - left) * min(height[left], height[right]), 
             area
-        )
+        ) # update the area if the new area in this iteration is larger
 
-        if height[left] < height[right]:
+        if height[left] < height[right]: # move the left side of container if it is smaller than the right side else vice-verca
             left += 1
         else:
             right -= 1
