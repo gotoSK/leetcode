@@ -26,25 +26,28 @@
 
 
 def maxArea(height: list, n: int) -> int:
-    left = 0
-    right = n-1
+    left = 0 # leftmost side of the container
+    right = n-1 # rightmost side of the container
     area = 0
 
     for high in range(max(height)+1):
+        # move the left side of container towards right until it doesn't overflow
         for i in range(left, n):
             if height[i] < high:
                 left += 1
             else:
                 break
-
+        
+        # move the right side of container towards left until it doesn't overflow
         for i in range(right, -1, -1):
             if height[i] < high:
                 right -= 1
             else:
                 break
-
+        
+        # update the area if the new area is larger
         area = (right-left) * high if (right-left) * high > area else area
-        print(left, right, high, area)
+        # print(left, right, high, area)
 
     return area
 
