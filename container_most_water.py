@@ -51,7 +51,26 @@ def maxArea(height: list, n: int) -> int:
 
     return area
 
+# optimized version (linear)
+def maxArea_op(height: list, n: int) -> int:
+    left = 0 # leftmost side of the container
+    right = n-1 # rightmost side of the container
+    area = 0
+    
+    while left < right:
+        area = max(
+            (right - left) * min(height[left], height[right]), 
+            area
+        )
+
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+
+    return area
+
 if __name__ == "__main__":
     height = input("Enter your array: ")
     height = list(map(int, height.split()))
-    print(maxArea(height, len(height)))
+    print(maxArea_op(height, len(height)))
