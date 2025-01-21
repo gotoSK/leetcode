@@ -24,9 +24,9 @@ def reverse_integer(x: int, n: int) -> int:
     i = int('1' + '0'*(n-1)) # 10 ^ (total digits in the number)
     while i >= 1:
         temp = int(x/10)
-        y += (round((x/10 - temp), 1) * 10) * i
+        y += (round((x/10 - temp), 1) * 10) * i # extracting the last digit and multiplying it my its place value
         y = int(y)
-        x = temp
+        x = temp # updating the initial no. such that the last digit is removed, for next iteration to extract the new last digit
         i /= 10
     return y
 
