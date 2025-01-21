@@ -19,6 +19,9 @@
 # Constraints:
 # -2³¹ <= x <= 2³¹ - 1
 
+def valid_range(y: int) -> bool:
+    return False if y<-2**31 or y>2**31-1 else True
+
 def reverse_integer(x: int, n: int) -> int:
     y = 0 # store the reversed integer
     i = int('1' + '0'*(n-1)) # 10 ^ (total digits in the number)
@@ -28,7 +31,7 @@ def reverse_integer(x: int, n: int) -> int:
         y = int(y)
         x = temp # updating the initial no. such that the last digit is removed, for next iteration to extract the new last digit
         i /= 10
-    return y
+    return y if valid_range(y) else 0
 
 
 if __name__ == "__main__":
