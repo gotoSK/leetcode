@@ -20,8 +20,8 @@
 # -2³¹ <= x <= 2³¹ - 1
 
 def reverse_integer(x: int, n: int) -> int:
-    y = 0
-    i = int('1' + '0'*(n-1))
+    y = 0 # store the reversed integer
+    i = int('1' + '0'*(n-1)) # 10 ^ (total digits in the number)
     while i >= 1:
         temp = int(x/10)
         y += (round((x/10 - temp), 1) * 10) * i
