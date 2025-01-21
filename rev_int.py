@@ -35,6 +35,6 @@ if __name__ == "__main__":
     x = input()
     print(reverse_integer(
             int(x),
-            len(x) if int(x)>0 else len(x)-1
+            len(x) if int(x)>0 else len(x)-1 # total no. of digits
         )
     )
