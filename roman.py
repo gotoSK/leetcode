@@ -99,8 +99,8 @@ def int_to_roman(num: int) -> str:
         if y != 0: # only compute if face value not 0, since no value for 0 in Roman
             y *= i # place value
             num -= y # updating the number by removing the current face value from it, for next operation
-            r += map_to_roman(y, n, i) # keep adding the roman values for each face value
-        i //= 10 # moving to next face value right to left
+            r += map_to_roman(y, n, i) # keep adding the roman values of each face value
+        i //= 10 # moving right to left, to next face value
         n -= 2 # update the pointer to map_table
 
     return r
