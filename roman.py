@@ -60,7 +60,7 @@ map_table = [
 ]
 
 def map_to_roman(y: int, n: int, pv: int) -> str:
-    r = None # roman equivalent
+    r = "" # roman equivalent
 
     if pv == 1000:
         i = pv
@@ -90,7 +90,7 @@ def map_to_roman(y: int, n: int, pv: int) -> str:
     return r
 
 def int_to_roman(num: int) -> str:
-    r = None # roman equivalent
+    r = "" # roman equivalent
     i = 1000 # starting from highest place value
     n = 6 # index in the map table
 
