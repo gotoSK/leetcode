@@ -62,13 +62,13 @@ map_table = [
 def map_to_roman(y: int, n: int, pv: int) -> str:
     r = "" # roman equivalent
 
-    if pv == 1000: # for 1000 place value
+    if pv == 1000: # for thousands
         i = pv
         while i <= y: # 'M' for each 1000
             r += map_table[n][1]
             i += pv
     
-    elif y < map_table[n+1][0]: # for 1*pv <= values < 5*pv, where pv = placevalue
+    elif y < map_table[n+1][0]: # for 1*pv <= values < 5*pv, where pv = placevalue/facevalue
         if y < map_table[n+1][0] - pv: # for values 1*pv, 2*pv, 3*pv
             i = map_table[n][0]
             while i <= y:
@@ -95,13 +95,13 @@ def int_to_roman(num: int) -> str:
     n = 6 # index in the map table
 
     while i >= 1:
-        y = num // i
-        if y != 0:
-            y *= i
-            num -= y
-            r += map_to_roman(y, n, i)
-        i //= 10
-        n -= 2
+        y = num // i # extracting the face value
+        if y != 0: # only compute if face value not 0, since no value for 0 in Roman
+            y *= i # place value
+            num -= y # updating the number by removing the current face value from it, for next operation
+            r += map_to_roman(y, n, i) # keep adding the roman values for each face value
+        i //= 10 # moving to next face value right to left
+        n -= 2 # update the pointer to map_table
 
     return r
 
