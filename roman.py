@@ -62,25 +62,25 @@ map_table = [
 def map_to_roman(y: int, n: int, pv: int) -> str:
     r = "" # roman equivalent
 
-    if pv == 1000:
+    if pv == 1000: # for 1000 place value
         i = pv
-        while i <= y:
+        while i <= y: # 'M' for each 1000
             r += map_table[n][1]
             i += pv
     
-    elif y < map_table[n+1][0]:
-        if y < map_table[n+1][0] - pv:
+    elif y < map_table[n+1][0]: # for 1*pv <= values < 5*pv, where pv = placevalue
+        if y < map_table[n+1][0] - pv: # for values 1*pv, 2*pv, 3*pv
             i = map_table[n][0]
             while i <= y:
                 r += map_table[n][1]
                 i += pv
-        else:
+        else: # for value 4*pv
             r = map_table[n][1] + map_table[n+1][1]
 
-    elif y == map_table[n+2][0] - pv:
+    elif y == map_table[n+2][0] - pv: # for value 9*pv
         r = map_table[n][1] + map_table[n+2][1]
 
-    else:
+    else: # for 5*pv <= values < 9*pv
         r = map_table[n+1][1]
         i = map_table[n+1][0]
         while i < y:
