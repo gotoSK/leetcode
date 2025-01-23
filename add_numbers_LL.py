@@ -28,3 +28,86 @@
 #     0 <= Node.val <= 9
 #     It is guaranteed that the list represents a number that does not have leading zeros.
 
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = next
+
+class SinglyLL:
+    def __init__(self):
+        self.head = None
+
+    # insert in reverse order
+    def insert_beginning(self, values):
+        for val in values:
+            node = Node(int(val))
+            node.next = self.head
+            self.head = node
+
+    # to insert the digit of the result list
+    def insert_end(self, val):
+        node = Node(val)
+        if not self.head:
+            self.head = node
+        else:
+            ptr = self.head
+            while ptr.next:
+                ptr = ptr.next
+            ptr.next = node
+
+    def display(self):
+        ptr = self.head
+        while ptr:
+            print(ptr.val, ", ", end="")
+            ptr = ptr.next
+        print()
+
+def add_two_numbers(l1, l2):
+    l1_ptr = l1.head
+    l2_ptr = l2.head
+    result = SinglyLL()
+    carry = 0
+
+    while True:
+        if not l1_ptr and not l2_ptr:
+            break
+
+        elif not l1_ptr:
+            sum = l2_ptr.val + carry
+            l2_ptr = l2_ptr.next
+        
+        elif not l2_ptr:
+            sum = l1_ptr.val + carry
+            l1_ptr = l1_ptr.next
+        
+        else:
+            sum = l1_ptr.val + l2_ptr.val + carry
+            l1_ptr = l1_ptr.next
+            l2_ptr = l2_ptr.next
+            
+            div = sum/10
+            if div >= 1:
+                result.insert_end((div-1) * 10)
+                carry = 1
+            else:
+                result.insert_end(sum)
+                carry = 0
+
+    return result
+
+if __name__ == "__main__":
+    l1 = SinglyLL()
+    l2 = SinglyLL()
+    result = SinglyLL()
+
+    num = input("l1: ")
+    l1.insert_beginning(num)
+
+    num = input("l2: ")
+    l2.insert_beginning(num)
+
+    l1.display()
+    l2.display()
+
+    result = add_two_numbers(l1, l2)
+    result.display()
