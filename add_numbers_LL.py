@@ -31,7 +31,7 @@
 class Node:
     def __init__(self, val):
         self.val = val
-        self.next = next
+        self.next = None
 
 class SinglyLL:
     def __init__(self):
@@ -77,6 +77,7 @@ def add_two_numbers(l1, l2):
             l2_ptr = l2_ptr.next
         
         elif not l2_ptr:
+            print("here")
             sum = l1_ptr.val + carry
             l1_ptr = l1_ptr.next
         
@@ -87,7 +88,7 @@ def add_two_numbers(l1, l2):
             
             div = sum/10
             if div >= 1:
-                result.insert_end((div-1) * 10)
+                result.insert_end(int( (div-1) * 10 ))
                 carry = 1
             else:
                 result.insert_end(sum)
