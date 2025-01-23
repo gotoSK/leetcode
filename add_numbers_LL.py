@@ -69,22 +69,23 @@ def add_two_numbers(l1, l2):
     carry = 0
 
     while True:
-        if not l1_ptr and not l2_ptr:
+        if not l1_ptr and not l2_ptr: # when no digits remaining in both lists
             break
 
-        elif not l1_ptr:
+        elif not l1_ptr: # when no digits remaining in l1 but in l2
             sum = l2_ptr.val + carry
             l2_ptr = l2_ptr.next
         
-        elif not l2_ptr:
+        elif not l2_ptr: # when no digits remaining in l2 but in l1
             sum = l1_ptr.val + carry
             l1_ptr = l1_ptr.next
         
-        else:
+        else: # digit available in both lists
             sum = l1_ptr.val + l2_ptr.val + carry
             l1_ptr = l1_ptr.next
             l2_ptr = l2_ptr.next
-            
+
+        # determine if carry occurs or not in addition 
         div = sum/10
         if div >= 1:
             result.insert_end(int( (div-1) * 10 ))
@@ -93,6 +94,7 @@ def add_two_numbers(l1, l2):
             result.insert_end(sum)
             carry = 0
     
+    # carry overflow
     if carry == 1:
         result.insert_end(carry)
 
