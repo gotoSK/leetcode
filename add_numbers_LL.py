@@ -86,9 +86,8 @@ def add_two_numbers(l1, l2):
             l2_ptr = l2_ptr.next
 
         # determine if carry occurs or not in addition 
-        div = sum/10
-        if div >= 1:
-            result.insert_end(int( (div-1) * 10 ))
+        if sum/10 >= 1:
+            result.insert_end(sum % 10)
             carry = 1
         else:
             result.insert_end(sum)
