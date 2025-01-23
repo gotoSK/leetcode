@@ -77,7 +77,6 @@ def add_two_numbers(l1, l2):
             l2_ptr = l2_ptr.next
         
         elif not l2_ptr:
-            print("here")
             sum = l1_ptr.val + carry
             l1_ptr = l1_ptr.next
         
@@ -86,13 +85,13 @@ def add_two_numbers(l1, l2):
             l1_ptr = l1_ptr.next
             l2_ptr = l2_ptr.next
             
-            div = sum/10
-            if div >= 1:
-                result.insert_end(int( (div-1) * 10 ))
-                carry = 1
-            else:
-                result.insert_end(sum)
-                carry = 0
+        div = sum/10
+        if div >= 1:
+            result.insert_end(int( (div-1) * 10 ))
+            carry = 1
+        else:
+            result.insert_end(sum)
+            carry = 0
 
     return result
 
