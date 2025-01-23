@@ -92,6 +92,9 @@ def add_two_numbers(l1, l2):
         else:
             result.insert_end(sum)
             carry = 0
+    
+    if carry == 1:
+        result.insert_end(carry)
 
     return result
 
