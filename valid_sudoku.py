@@ -43,26 +43,31 @@
 import sys
 
 def isValidSudoku(board: list, check_type: str) -> bool:
-    if check_type == "sub-box":
-        availables = "123456789"
-        size = 3
-    else:
-        size = 9
-    
-    for i in range(size):
-        
-        if check_type != "sub-box":
+    # valid row & col    
+    if check_type != "sub-box":
+        for i in range(9):
             availables = "123456789"
-        
-        for j in range(size):
-            if check_type != "col": val = board[i][j]
-            else: val = board[j][i]
+            for j in range(9):
+                if check_type != "col": val = board[i][j] # while validating row
+                else: val = board[j][i] # while validatin col
 
-            if val != ".":
-                if val in availables:
-                    availables = availables.replace(val, "")
-                else:
-                    return False
+                if val != ".": # skip the empty boxes else do this
+                    if val in availables: # if unique value has been encountered
+                        availables = availables.replace(val, "")
+                    else: # if the same value has been encountered, invalidate
+                        return False
+
+    # valid sub-box
+    else:
+        for box in range(9): # do for all 9 sub-boxes
+            availables = "123456789"
+            for i in range(3):
+                for j in range(3):
+                    if board[i][j] != ".":
+                        if board[i][j] in availables:
+                            availables = availables.replace(board[i][j], "")
+                        else:
+                            return False
     
     return True
 
