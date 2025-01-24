@@ -3,13 +3,16 @@ import sys
 def isValidSudoku(board: list, check_type: str) -> bool:
     if check_type == "sub-box":
         availables = "123456789"
+        size = 3
+    else:
+        size = 9
     
-    for i in range(9):
+    for i in range(size):
         
         if check_type != "sub-box":
             availables = "123456789"
         
-        for j in range(9):
+        for j in range(size):
             if check_type != "col": val = board[i][j]
             else: val = board[j][i]
 
