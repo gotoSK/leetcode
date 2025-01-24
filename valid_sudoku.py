@@ -17,13 +17,9 @@ def isValidSudoku(board: list, check_type: str) -> bool:
             else: val = board[j][i]
 
             if val != ".":
-                valid = False
-                for x in availables:
-                    if val == x:
-                        valid = True
-                        availables = availables.replace(val, "")
-                        break
-                if not valid:
+                if val in availables:
+                    availables = availables.replace(val, "")
+                else:
                     return False
     
     return True
