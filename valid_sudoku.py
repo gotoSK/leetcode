@@ -62,8 +62,9 @@ def isValidSudoku(board: list, check_type: str) -> bool:
         # do for all 9 sub-boxes
         for x in range(0, 9, 3):
             for y in range(0, 9, 3):
-                
+
                 availables = "123456789"
+                # select a sub-box and check each of its boxes
                 for i in range(x, x+3):
                     for j in range(y, y+3):
                         if board[i][j] != ".":
