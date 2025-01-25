@@ -47,14 +47,15 @@ def isAnagram(s: str, t: str) -> bool:
         except:
             t_map[t_char] = 1
 
-    # for i in range(len(s)):
-
-    # for x in s:
-    #     if x in t:
-    #         t = t.replace(x, '', 1)
-    #     else:
-    #         return False
-    # return True
+    # check the frequency of each character in s compared to t
+    for key in s_map:
+        try:
+            if s_map[key] != t_map[key]:
+                return False
+        except:
+            # when the same key in s dosen't exist in t
+            return False
+    return True
 
 if __name__ == "__main__":
     s = input()
