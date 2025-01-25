@@ -20,12 +20,41 @@
 #     s and t consist of lowercase English letters.
 
 def isAnagram(s: str, t: str) -> bool:
-    for x in s:
-        if x in t:
-            t = t.replace(x, '', 1)
-        else:
-            return False
-    return True
+    # immediately invalidate if the length of the strings are different
+    if len(s) != len(t):
+        return False
+
+    # create hash-map for both the strings
+    s_map = {}
+    t_map = {}
+
+    # and fill with values as frequency of the character's occurance in the string
+    for i in range(len(s)):
+        
+        #obtain the ith character from the string
+        s_char = s[i]
+        t_char = t[i]
+
+        # update the value if exists else create and initialize
+        # for 's'
+        try:
+            s_map[s_char] += 1
+        except:
+            s_map[s_char] = 1
+        # for 't'
+        try:
+            t_map[t_char] += 1
+        except:
+            t_map[t_char] = 1
+
+    # for i in range(len(s)):
+
+    # for x in s:
+    #     if x in t:
+    #         t = t.replace(x, '', 1)
+    #     else:
+    #         return False
+    # return True
 
 if __name__ == "__main__":
     s = input()
