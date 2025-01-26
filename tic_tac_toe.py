@@ -17,82 +17,47 @@ def display_grid(grid: list):
     for row in grid:    print(row)
 
 
-def validator(grid, i, j, play, count) -> tuple[int, int]:
-    # if the cell is empty, immediately reject the row/col/diagonal
-    if grid[i][j] == "":
-        play = ""
-    else:
-        # identify move played in the first cell of the row/col/diagonal
-        if play == "":
-            play = grid[i][j]
-            count += 1
-        # reject the row/col/diagonal if different move has been played
-        elif play != grid[i][j]:
-            play = ""
-        else:
-            count += 1
-
-    return play, count
-
-
-def win_check(grid: list, total_moves: int) -> str:
-    # check rows
-    for i in range(3):
-        play = "" # move played on the cell
-        count = 0 # count of consecutive of same play
-        for j in range(3):
-            play, count = validator(grid, i, j, play, count)
-            if play == "":  break
-        # if all three cells of the row is played by the same player, declare winner
-        if count == 3:
-            return "A" if play=="X" else "B"
-        
-    # check columns
-    for j in range(3):
-        play = "" # move played on the cell
-        count = 0 # count of consecutive of same play
-        for i in range(3):
-            play, count = validator(grid, i, j, play, count)
-            if play == "":  break
-        # if all three cells of the col is played by the same player, declare winner
-        if count == 3:
-            return "A" if play=="X" else "B"
-
-    # check left-to-right diagonal
-    play = "" # move played on the cell
-    count = 0 # count of consecutive of same play
-    for i in range(3):
-        play, count = validator(grid, i, i, play, count)
-        if play == "":  break
-    # if all three cells of the diagonal is played by the same player, declare winner
-    if count == 3:
-        return "A" if play=="X" else "B"
-
-    # check right-to-left diagonal
-    play = "" # move played on the cell
-    count = 0 # count of consecutive of same play
-    for i in range(3):
-        play, count = validator(grid, i, 2-i, play, count)
-        if play == "":  break
-    # if all three cells of the diagonal is played by the same player, declare winner
-    if count == 3:
-        return "A" if play=="X" else "B"
-    
-    return "Draw" if total_moves==9 else "Pending"
-
-
 def tic_tac_toe(moves: list) -> str:
     play = "X" # (X/O) initial player is A playing 'X'
-    total_moves = 0 # counts the total moves played [0,9]
     grid = [[""] * 3 for _ in range(3)] # initializing an empty 3x3 grid
     
+    # Place moves in grid
     for row, col in moves:
         grid[row][col] = play # update the play on grid
         play = "O" if play=="X" else "X" # switch between X/O in each turn
-        total_moves += 1
 
     display_grid(grid)
-    return win_check(grid, total_moves)
+
+    for i in range(3):
+        # check rows
+        if grid[i][0] == grid[i][1] == grid[i][2]: # when all cells of the row is same
+            if grid[i][0] == "X":
+                return "A"
+            elif grid[i][0] == "O":
+                return "B"
+            
+        # check columns
+        if grid[0][i] == grid[1][i] == grid[2][i]: # when all cells of the col is same
+            if grid[0][i] == "X":
+                return "A"
+            elif grid[0][i] == "O":
+                return "B"
+
+    # check left-to-right diagonal
+    if grid[0][0] == grid[1][1] == grid[2][2]: # when all cells of the diagonal is same
+            if grid[0][0] == "X":
+                return "A"
+            elif grid[0][0] == "O":
+                return "B"
+            
+    # check right-to-left diagonal
+    if grid[0][2] == grid[1][1] == grid[2][0]: # when all cells of the diagonal is same
+            if grid[0][2] == "X":
+                return "A"
+            elif grid[0][2] == "O":
+                return "B"
+    
+    return "Draw" if len(moves)==9 else "Pending"
 
 
 if __name__ == "__main__":
