@@ -17,7 +17,27 @@ def display_grid(grid: list):
     for row in grid:    print(row)
 
 def win_check(grid: list, total_moves: int) -> str:
-    pass
+    # check rows
+    for i in range(3):
+        play = ""
+        count = 0
+        for j in range(3):
+            # if the cell is empty, immediately reject the row
+            if grid[i][j] == "":
+                break
+            else:
+                # identify move played in the first cell of the row
+                if play == "":
+                    play = grid[i][j]
+                    count += 1
+                # reject the row if different move has been played
+                elif play != grid[i][j]:
+                    break
+                else:
+                    count += 1
+        if count == 3:
+            return "A" if play=="X" else "B"
+
 
 def tic_tac_toe(moves: list) -> str:
     play = "X" # (X/O) initial player is A playing 'X'
@@ -30,7 +50,9 @@ def tic_tac_toe(moves: list) -> str:
         total_moves += 1
 
     display_grid(grid)
+    return win_check(grid, total_moves)
 
 if __name__ == "__main__":
-    moves = [[0,0], [2,0], [1,1], [2,1], [2,2]]
+    moves = [[2,0], [1,0], [2,1], [1,1], [2,2]]
+    # moves = [[0,0], [2,0], [1,1], [2,1], [2,2]]
     print(tic_tac_toe(moves))
