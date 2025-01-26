@@ -16,50 +16,69 @@
 def display_grid(grid: list):
     for row in grid:    print(row)
 
+
+def validator(grid, i, j, play, count) -> tuple[int, int]:
+    # if the cell is empty, immediately reject the row/col/diagonal
+    if grid[i][j] == "":
+        play = ""
+    else:
+        # identify move played in the first cell of the row/col/diagonal
+        if play == "":
+            play = grid[i][j]
+            count += 1
+        # reject the row/col/diagonal if different move has been played
+        elif play != grid[i][j]:
+            play = ""
+        else:
+            count += 1
+
+    return play, count
+
+
 def win_check(grid: list, total_moves: int) -> str:
     # check rows
     for i in range(3):
-        play = ""
-        count = 0
+        play = "" # move played on the cell
+        count = 0 # count of consecutive of same play
         for j in range(3):
-            # if the cell is empty, immediately reject the row
-            if grid[i][j] == "":
-                break
-            else:
-                # identify move played in the first cell of the row
-                if play == "":
-                    play = grid[i][j]
-                    count += 1
-                # reject the row if different move has been played
-                elif play != grid[i][j]:
-                    break
-                else:
-                    count += 1
+            play, count = validator(grid, i, j, play, count)
+            if play == "":  break
         # if all three cells of the row is played by the same player, declare winner
         if count == 3:
             return "A" if play=="X" else "B"
         
     # check columns
     for j in range(3):
-        play = ""
-        count = 0
+        play = "" # move played on the cell
+        count = 0 # count of consecutive of same play
         for i in range(3):
-            # if the cell is empty, immediately reject the col
-            if grid[i][j] == "":
-                break
-            else:
-                # identify move played in the first cell of the col
-                if play == "":
-                    play = grid[i][j]
-                    count += 1
-                # reject the col if different move has been played
-                elif play != grid[i][j]:
-                    break
-                else:
-                    count += 1
+            play, count = validator(grid, i, j, play, count)
+            if play == "":  break
         # if all three cells of the col is played by the same player, declare winner
         if count == 3:
             return "A" if play=="X" else "B"
+
+    # check left-to-right diagonal
+    play = "" # move played on the cell
+    count = 0 # count of consecutive of same play
+    for i in range(3):
+        play, count = validator(grid, i, i, play, count)
+        if play == "":  break
+    # if all three cells of the diagonal is played by the same player, declare winner
+    if count == 3:
+        return "A" if play=="X" else "B"
+
+    # check right-to-left diagonal
+    play = "" # move played on the cell
+    count = 0 # count of consecutive of same play
+    for i in range(3):
+        play, count = validator(grid, i, 2-i, play, count)
+        if play == "":  break
+    # if all three cells of the diagonal is played by the same player, declare winner
+    if count == 3:
+        return "A" if play=="X" else "B"
+    
+    return "Draw" if total_moves==9 else "Pending"
 
 
 def tic_tac_toe(moves: list) -> str:
@@ -75,8 +94,21 @@ def tic_tac_toe(moves: list) -> str:
     display_grid(grid)
     return win_check(grid, total_moves)
 
+
 if __name__ == "__main__":
-    moves = [[0,2], [0,1], [1,2], [1,1], [2,2]]
+    # draw
+    # moves = [[0,0], [0,1], [1,1], [2,2], [1,2], [1,0], [0,2], [2,0], [2,1]]
+    # pending
+    # moves = [[0,0], [0,2], [1,2], [1,1], [2,1]]
+    # diagonal-2
+    # moves = [[0,0], [0,2], [1,2], [1,1], [2,1], [2,0]]
+    # diagonal-1
+    # moves = [[0,0], [0,1], [1,1], [1,2], [2,2]]
+    # cols
+    # moves = [[0,2], [0,1], [1,2], [1,1], [2,2]]
+    # rows
     # moves = [[2,0], [1,0], [2,1], [1,1], [2,2]]
+    
     # moves = [[0,0], [2,0], [1,1], [2,1], [2,2]]
+    moves = [[0,0], [1,1], [0,1], [0,2], [1,0], [2,0]]
     print(tic_tac_toe(moves))
