@@ -13,15 +13,23 @@
 
 # You can assume that moves is valid (i.e., it follows the rules of Tic-Tac-Toe), the grid is initially empty, and A will play first.
 
-def win_check(total_moves: int) -> str:
+def display_grid(grid: list):
+    for row in grid:    print(row)
+
+def win_check(grid: list, total_moves: int) -> str:
     pass
 
 def tic_tac_toe(moves: list) -> str:
-    play = "X" # initial player is A playing 'X'
+    play = "X" # (X/O) initial player is A playing 'X'
     total_moves = 0 # counts the total moves played [0,9]
+    grid = [[""] * 3 for _ in range(3)] # initializing an empty 3x3 grid
     
     for row, col in moves:
-        print(row,col)
+        grid[row][col] = play # update the play on grid
+        play = "O" if play=="X" else "X" # switch between X/O in each turn
+        total_moves += 1
+
+    display_grid(grid)
 
 if __name__ == "__main__":
     moves = [[0,0], [2,0], [1,1], [2,1], [2,2]]
